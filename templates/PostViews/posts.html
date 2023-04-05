@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "PostViews/basePost.html" %}
 
-</body>
-</html>
+
+{% block contenido_cambia %}
+    <h1>Ultimas Publicaciones</h1>
+    {% if posts %}
+        {% for post in posts %}
+            <p>Titulo: {{ post.titulo }}</p>
+            <p>Subtitulo: {{ post.subTitulo }}</p>
+            <p>Cuerpo: {{ post.cuerpo }}</p>
+            <button onclick="window.location.herf='{% url 'Post' id = objects.id %}'">Ver mas</button>
+        {% endfor %}
+    {% else %}
+        <h1>No hay productos en el momento</h1>
+    {% endif %}
+
+{% endblock %}

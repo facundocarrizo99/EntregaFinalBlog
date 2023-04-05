@@ -49,11 +49,11 @@ def logInRequest(request):
 
             if user not in None:
                 login(request, user)
-                return render(request, "LogInViews/homeScreenLogged.html", {"mensaje": f"Bienvenido {usuario}"})
+                return render(request, "PostViews/posts.html", {"mensaje": f"Bienvenido {usuario}"})
             else:
-                return render(request, "LogInViews/homeScreenLogged.html", {"mensaje": f"Error, Datos incorrectos"})
+                return render(request, "LogInViews/logIn.html", {"mensaje": f"Error, Datos incorrectos"})
         else:
-            return render(request, "LogInViews/homeScreenLogged.html", {"mensaje": f"Formulario incorrecto"})
+            return render(request, "LogInViews/logIn.html", {"mensaje": f"Formulario incorrecto"})
 
     form = AuthenticationForm()
-    return render(request, "LogInViews/registroAdmin.html", {'form':form})
+    return render(request, "LogInViews/logIn.html", {'form':form})

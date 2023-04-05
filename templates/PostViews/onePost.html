@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "PostViews/basePost.html" %}
 
-</body>
-</html>
+
+{% block contenido_cambia %}
+    <h1></h1>
+            <p>Titulo: {{ post.titulo }}</p>
+            <p>Subtitulo: {{ post.subTitulo }}</p>
+            <p>Cuerpo: {{ post.cuerpo }}</p>
+            <p>Foto: {{ post.foto }}</p>
+            <p> {{ post.owner }}</p>
+            <p>fecha: {{ post.fecha }}</p>
+            <button onclick="">Agregar Comentario</button>
+
+
+{% endblock %}

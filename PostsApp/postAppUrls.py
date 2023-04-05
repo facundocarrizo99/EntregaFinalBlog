@@ -7,5 +7,5 @@ urlpatterns = [
     path('addPosts', createPost, name="CreatePost"),
     path('addComment', createComment, name="CreateComment"),
     path('allPosts', postHome, name="AllPosts"),
-    path('post/?', onePost, name="OnePost"),
+    path('post/<id>', onePost, name="OnePost"),
 ]
