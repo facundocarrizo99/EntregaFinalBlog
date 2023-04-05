@@ -1,0 +1,11 @@
+{% extends "PostViews/basePost.html" %}
+
+
+{% block contenido_cambia %}
+    {#Creacion de Comment#}
+    <form action="{% url 'CreateComment' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Publicar">
+    </form>
+{% endblock %}
