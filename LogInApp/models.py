@@ -2,12 +2,12 @@ from django.db import models
 
 # Create your models here.
 class Account(models.Model):
-    userName = models.CharField(max_length=20)
-    userEmail = models.EmailField()
-    userPassword = models.CharField(max_length=20)
+    username = models.CharField(max_length=20)
+    email = models.EmailField()
+    userpassword = models.CharField(max_length=20)
 
     def __str__(self):
-        return f"Usuario: {self.userName}, Email: {self.userEmail}, Password: {self.userPassword}"
+        return f"Usuario: {self.username}, Email: {self.email}, Password: {self.userpassword}"
 
 
 class Blogger(Account):

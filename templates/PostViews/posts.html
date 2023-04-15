@@ -8,7 +8,7 @@
             <p>Titulo: {{ post.titulo }}</p>
             <p>Subtitulo: {{ post.subTitulo }}</p>
             <p>Cuerpo: {{ post.cuerpo }}</p>
-            <button onclick="window.location.herf='{% url 'Post' id = objects.id %}'">Ver mas</button>
+
         {% endfor %}
     {% else %}
         <h1>No hay productos en el momento</h1>

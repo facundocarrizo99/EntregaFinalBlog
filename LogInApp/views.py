@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Blogger, Admin
 from .forms import BloggerForm, AdminForm
+from .customBackend import CustomBackend
 
 # Create your views here.
 def createBlogger(request):
@@ -11,11 +12,12 @@ def createBlogger(request):
         if form.is_valid():
             name = form.cleaned_data["nombre"]
             surname = form.cleaned_data["apellido"]
-            mail = form.cleaned_data["userEmail"]
-            username = form.cleaned_data["userName"]
-            password = form.cleaned_data["userPassword"]
-            t = Blogger(nombre=name, apellido=surname, userEmail=mail, userName=username, userPassword=password)
+            mail = form.cleaned_data["email"]
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["userpassword"]
+            t = Blogger(nombre=name, apellido=surname, email=mail, username=username, userpassword=password)
             t.save()
+            return render(request, "PostViews/home.html")
     context = {
         "form": BloggerForm()
     }
@@ -26,11 +28,12 @@ def createAdmin(request):
     if request.method == "POST":
         form = AdminForm(request.POST)
         if form.is_valid():
-            mail = form.cleaned_data["userEmail"]
-            username = form.cleaned_data["userName"]
-            password = form.cleaned_data["userPassword"]
-            t = Admin(userEmail=mail, userName=username, userPassword=password)
+            mail = form.cleaned_data["email"]
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["userpassword"]
+            t = Admin(email=mail, username=username, userpassword=password)
             t.save()
+            return render(request, "PostViews/home.html")
     context = {
         "form": AdminForm()
     }
@@ -44,16 +47,19 @@ def logInRequest(request):
         if form.is_valid():
             usuario = form.cleaned_data.get('username')
             clave = form.cleaned_data.get('password')
-
-            user = authenticate(username=usuario, password=clave)
+            return render(request, 'PostViews/posts.html')
+            """
+            user = CustomBackend(request, username=usuario, password=clave)
 
             if user not in None:
                 login(request, user)
-                return render(request, "PostViews/posts.html", {"mensaje": f"Bienvenido {usuario}"})
+                return redirect('AllPosts')
             else:
-                return render(request, "LogInViews/logIn.html", {"mensaje": f"Error, Datos incorrectos"})
+                error_message = 'Invalid username or password'
+                return render(request, 'LogInViews/logIn.html', {'error_message': error_message})
+                """
         else:
-            return render(request, "LogInViews/logIn.html", {"mensaje": f"Formulario incorrecto"})
+            return render(request, "PostViews/home.html", {"mensaje": f"Formulario incorrecto"})
 
     form = AuthenticationForm()
     return render(request, "LogInViews/logIn.html", {'form':form})

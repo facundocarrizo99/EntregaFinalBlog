@@ -6,6 +6,6 @@
     <form action="{% url 'LogIn' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Iniciar Sesion</button>
+        <input type="submit" value="Iniciar Sesion">
     </form>
 {% endblock %}
