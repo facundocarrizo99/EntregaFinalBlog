@@ -8,7 +8,7 @@ class CustomBackend(BaseBackend):
 
         try:
             user = Blogger.objects.get(username=username)
-            if user.check_password(password):
+            if Blogger.check_password(password):
                 return user
         except Blogger.DoesNotExist:
             return None

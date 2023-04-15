@@ -42,24 +42,26 @@ def createAdmin(request):
 
 def logInRequest(request):
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-
+        form = AuthenticationForm(request.POST)
         if form.is_valid():
+
             usuario = form.cleaned_data.get('username')
-            clave = form.cleaned_data.get('password')
-            return render(request, 'PostViews/posts.html')
-            """
-            user = CustomBackend(request, username=usuario, password=clave)
+            clave = form.cleaned_data.get('userpassword')
+            user = CustomBackend.authenticate(request, username=usuario, password=clave)
 
             if user not in None:
                 login(request, user)
-                return redirect('AllPosts')
+                return redirect('Redirect')
             else:
                 error_message = 'Invalid username or password'
                 return render(request, 'LogInViews/logIn.html', {'error_message': error_message})
-                """
+
         else:
             return render(request, "PostViews/home.html", {"mensaje": f"Formulario incorrecto"})
 
     form = AuthenticationForm()
     return render(request, "LogInViews/logIn.html", {'form':form})
+
+
+def redirect(request):
+    render(request, "LogInViews/redirecct.html")
