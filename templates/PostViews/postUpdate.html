@@ -1,0 +1,21 @@
+{% extends 'PostViews/base.html' %}
+{% block titulo %}
+    Update PostOn
+{% endblock %}
+{% block contenido_cambia %}
+    {% if user.is_authenticated %}
+        {% if user.id == post.owner.id %}
+            <h1>Update the PostOn</h1>
+            <br><br/>
+            <div class="form-group">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-secondary">Save Changes</button>
+                </form>
+            </div>
+        {% else %}
+            <h3>Please LogIn to update this Post</h3>
+        {% endif %}
+    {% endif %}
+{% endblock %}

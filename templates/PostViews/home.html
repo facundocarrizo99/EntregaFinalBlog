@@ -1,17 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>The new way to Blog</title>
-</head>
-<body>
-    <nav class="navbar navbar-light bg-light static-top">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'Home' %}">Home</a>
-            <a class="navbar-brand" href="{% url 'LogIn' %}">Login</a>
-            <a class="navbar-brand" href="{% url 'CreateBlogger' %}">Create account</a>
-        </div>
-    </nav>
-    <h1>The new way to Blog</h1>
-</body>
-</html>
+{% extends 'PostViews/base.html' %}
+{% block contenido_cambia %}
+
+    <h1>All PostOn</h1>
+
+    <ul>
+        {% for post in object_list %}
+            <li><a href="{% url 'PostDetail' post.pk %}"> {{ post.titulo }} </a>
+                - {{ post.owner.first_name }}
+                {{ post.owner.last_name }}
+                - {{ post.postDate }}
+                {% if user.is_authenticated %}
+                    {% if user.id == post.owner.id %}
+                        - <a href="{% url 'PostUpdate' post.pk %}">Edit</a> |
+                        <a href="{% url 'PostUpdate' post.pk %}">Delete</a>
+                    {% endif %}
+                {% endif %}
+                <br/>
+                {{ post.cuerpo | slice:"100" | safe }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% for post in object_list %}
+        {{ item }} <br/>
+    {% endfor %}
+{% endblock %}

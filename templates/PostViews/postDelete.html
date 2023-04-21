@@ -1,0 +1,25 @@
+{% extends 'PostViews/base.html' %}
+{% block titulo %}
+    Delete PostOn
+{% endblock %}
+{% block contenido_cambia %}
+    {% if user.is_authenticated %}
+        {% if user.id == post.owner.id %}
+            <h1>Delete a PostOn</h1>
+
+            <br><br/>
+            <h3>Delete: {{ post.titulo }}</h3>
+            <div class="form-group">
+                <form method="POST">
+                    {% csrf_token %}
+                    <strong>Are you sure you want to delete this PostOn?</strong><br/><br/>
+                    <button class="btn btn-secondary">Delete</button>
+                </form>
+            </div>
+        {% else %}
+            Please LogIn to delete this PostOn
+        {% endif %}
+    {% else %}
+        <h3>Please LogIn to delete this PostOn</h3>
+    {% endif %}
+{% endblock %}

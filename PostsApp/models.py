@@ -1,25 +1,31 @@
-from datetime import datetime
 
+from django.contrib.auth.models import User
+from django.urls import reverse
 from django.db import models
-from LogInApp.models import Blogger
 
 # Create your models here.
 class Post(models.Model):
     titulo = models.CharField(max_length=128)
     subTitulo = models.CharField(max_length=256)
-    cuerpo = models.CharField(max_length=1024)
-    owner = models.ForeignKey(Blogger, on_delete=models.CASCADE)
-    fecha = models.DateTimeField(default=datetime.now())
-    foto = models.FileField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    cuerpo = models.TextField()
+    postDate = models.DateTimeField(auto_now_add=True)
+    #foto = models.FileField()
 
     def __str__(self):
-        return f"titulo: {self.titulo}, subTitulo: {self.subTitulo}, cuerpo: {self.cuerpo}, owner: {self.owner}, fecha: {self.fecha}, foto: {self.foto}"
+        return self.titulo + ' | ' + str(self.owner)
+
+    def get_absolute_url(self):
+        return reverse('PostDetail', args=(str(self.id)))
 
 class Comment(models.Model):
-    commentOwner = models.ForeignKey(Blogger, on_delete=models.CASCADE)
+    commentOwner = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     texto = models.CharField(max_length=150)
-    fecha = models.DateTimeField(default=datetime.now())
+    commentDate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"commentOwner: {self.commentOwner}, post: {self.post}, texto: {self.texto}, fecha: {self.fecha}"
+        return self.post + ' | ' + str(self.commentOwner)
+
+    def get_absolute_url(self):
+        return reverse('Home')

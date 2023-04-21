@@ -1,0 +1,19 @@
+{% extends "PostViews/base.html" %}
+{% block titulo %}
+    Create Account
+{% endblock %}
+
+{% block contenido_cambia %}
+    <h1>
+    Create account
+    </h1>
+    <br><br/>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondary">Sign-Up</button>
+        </form>
+    </div>
+
+{% endblock %}

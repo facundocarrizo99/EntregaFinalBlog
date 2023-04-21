@@ -1,12 +1,12 @@
 from django.urls import path
-from .views import createPost, createComment, postHome, onePost, home
+from .views import home, CreatePost, PostDetails, UpdatePost, DeletePost, HomeView
 
-from LogInApp.views import *
+from accounts.views import *
 
 urlpatterns = [
-    path('addPosts', createPost, name="CreatePost"),
-    path('addComment', createComment, name="CreateComment"),
-    path('allPosts', postHome, name="AllPosts"),
-    path('post', onePost, name="OnePost"),
-    path('', home, name="Home"),
+    path('', HomeView.as_view(), name="Home"),
+    path('addPost/', CreatePost.as_view(), name="PostCreate"),
+    path('post/<int:pk>', PostDetails.as_view(), name="PostDetail"),
+    path('post/edit/<int:pk>', UpdatePost.as_view(), name="PostUpdate"),
+    path('post/delete/<int:pk>', DeletePost.as_view(), name="PostDelete"),
 ]
