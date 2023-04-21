@@ -4,14 +4,33 @@ from .models import Post, Comment
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ['fecha', 'foto']
-        #fields = ['__all__']
+        fields = ('titulo', 'subTitulo', 'owner', 'cuerpo')
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title for this post'}),
+            'subTitulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'owner': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'usuario', 'type': 'hidden'}),
+            'cuerpo': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+class PostEditForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('titulo', 'subTitulo', 'cuerpo')
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title for this post'}),
+            'subTitulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'cuerpo': forms.Textarea(attrs={'class': 'form-control'}),
+        }
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        exclude = ['fecha']
-        #fields = ['texto', 'commentOwner', 'post']
+        fields = ['commentOwner', 'post', 'texto']
+        widgets = {
+            'commentOwner': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'usuario', 'type': 'hidden'}),
+            'post': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'post', 'type': 'hidden'}),
+            'texto': forms.Textarea(attrs={'class': 'form-control'}),
+        }
 
 
 class BusquedaPostForm():
