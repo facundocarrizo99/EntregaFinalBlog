@@ -10,13 +10,13 @@ class Post(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     cuerpo = models.TextField()
     postDate = models.DateTimeField(auto_now_add=True)
-    foto = models.FileField()
+    #foto = models.FileField()
 
     def __str__(self):
         return self.titulo + ' | ' + str(self.owner)
 
-    def getConstantURL(self):
-        return reverse('OnePost', args=(str(self.id)))
+    def get_absolute_url(self):
+        return reverse('PostDetail', args=(str(self.id)))
 
 class Comment(models.Model):
     commentOwner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -27,5 +27,5 @@ class Comment(models.Model):
     def __str__(self):
         return self.post + ' | ' + str(self.commentOwner)
 
-    def getConstantURL(self):
+    def get_absolute_url(self):
         return reverse('Home')
