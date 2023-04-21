@@ -8,7 +8,7 @@
     <h1>{{ post.titulo }}</h1>
     <small> Escrito por: {{ post.owner.first_name }} {{ post.owner.last_name }} - {{ post.postDate }} -
         {% if user.is_authenticated %}
-            {% if user.id == post.autor.id %}
+            {% if user.id == post.owner.id %}
                 <a href="{% url 'PostUpdate' post.pk %}">Edit</a> -
                 <a href="{% url 'PostDelete' post.pk %}">Delete</a></small>
             {% endif %}

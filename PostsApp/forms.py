@@ -10,7 +10,7 @@ class PostForm(forms.ModelForm):
             'titulo': forms.TextInput(attrs={'class': 'form_class-control', 'placeholder': 'Title for this post'}),
             'subTitulo': forms.TextInput(attrs={'class': 'form_class-control'}),
             'owner': forms.TextInput(
-                attrs={'class': 'form_class-control', 'value': '', 'id': 'usuario', 'type': 'hidden'}),
+                attrs={'class': 'form_class-control', 'value': '', 'id': 'user', 'type': 'hidden'}),
             'cuerpo': forms.Textarea(attrs={'class': 'form_class-control'}),
         }
 
@@ -32,7 +32,7 @@ class CommentForm(forms.ModelForm):
         fields = ['commentOwner', 'post', 'texto']
         widgets = {
             'commentOwner': forms.TextInput(
-                attrs={'class': 'form_class-control', 'value': '', 'id': 'usuario', 'type': 'hidden'}),
+                attrs={'class': 'form_class-control', 'value': '', 'id': 'user', 'type': 'hidden'}),
             'post': forms.TextInput(attrs={'class': 'form_class-control', 'value': '', 'id': 'post', 'type': 'hidden'}),
             'texto': forms.Textarea(attrs={'class': 'form_class-control'}),
         }

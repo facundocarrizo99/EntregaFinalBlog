@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from datetime import datetime
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, RedirectView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from .forms import PostForm, CommentForm, PostEditForm
 from .models import Post, Comment
 
@@ -31,7 +31,7 @@ class CreatePost(CreateView):
         return context
 
 
-class PostDetails(CreateView):
+class PostDetails(DetailView):
     model = Post
     fields = '__all__'
     template_name = 'PostViews/postDetails.html'
@@ -41,7 +41,7 @@ class PostDetails(CreateView):
         return context
 
 
-class UpdatePost(CreatePost):
+class UpdatePost(UpdateView):
     model = Post
     form_class = PostEditForm
     template_name = 'PostViews/postUpdate.html'
@@ -51,7 +51,7 @@ class UpdatePost(CreatePost):
         return context
 
 
-class DeletePost(CreatePost):
+class DeletePost(DeleteView):
     model = Post
     template_name = 'PostViews/postDelete.html'
     success_url = reverse_lazy('Home')

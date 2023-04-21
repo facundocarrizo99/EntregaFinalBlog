@@ -4,7 +4,7 @@
 {% endblock %}
 {% block contenido_cambia %}
     {% if user.is_authenticated %}
-        {% if user.id == post.autor.id %}
+        {% if user.id == post.owner.id %}
             <h1>Update the PostOn</h1>
             <br><br/>
             <div class="form-group">
