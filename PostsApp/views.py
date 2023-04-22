@@ -10,7 +10,6 @@ from .models import Post, Comment
 def home(request):
     return render(request, "PostViews/home.html", {})
 
-
 class HomeView(ListView):
     model = Post
     template_name = 'PostViews/home.html'
@@ -25,6 +24,10 @@ class CreatePost(CreateView):
     model = Post
     form_class = PostForm
     template_name = 'PostViews/postCreate.html'
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
     def get_context_data(self, *args, **kwargs):
         context = super(CreatePost, self).get_context_data(*args, **kwargs)
@@ -46,6 +49,10 @@ class UpdatePost(UpdateView):
     form_class = PostEditForm
     template_name = 'PostViews/postUpdate.html'
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
     def get_context_data(self, *args, **kwargs):
         context = super(UpdatePost, self).get_context_data(*args, **kwargs)
         return context
@@ -58,6 +65,15 @@ class DeletePost(DeleteView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(DeletePost, self).get_context_data(*args, **kwargs)
+        return context
+
+class AboutUs(CreateView):
+    model = Post
+    fields = '__all__'
+    template_name = 'PostViews/aboutUs.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AboutUs, self).get_context_data(*args, **kwargs)
         return context
 
 

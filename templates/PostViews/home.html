@@ -1,7 +1,15 @@
 {% extends 'PostViews/base.html' %}
 {% block contenido_cambia %}
 
-    <h1>All PostOn</h1>
+    <h1>PostOn</h1>
+
+    <li>
+        PostOn! the new way to post!
+        Login and try for yourself
+    </li>
+    <br/>
+    <br/>
+    <h1>Latest PostOn</h1>
 
     <ul>
         {% for post in object_list %}
@@ -24,4 +32,6 @@
     {% for post in object_list %}
         {{ item }} <br/>
     {% endfor %}
+
+
 {% endblock %}
